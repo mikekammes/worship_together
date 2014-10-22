@@ -18,6 +18,22 @@ class UsersController < ApplicationController
 	end
     end
 
+    def update
+	@user=User.find(params[:id])
+	if @user.update_attributes(params.require(:user).permit(:name, :email, :password))
+	    flash[:success] = "Edited the user"
+	    redirect_to @user
+	else
+	    flash.now[:danger] = "Unable to edit User"
+	    render 'edit'
+	end
+	
+    end
+
+    def edit
+	@user=User.find(params[:id])
+    end
+
     def show
 	@user = User.find(params[:id])
     rescue
