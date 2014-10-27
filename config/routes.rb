@@ -1,5 +1,7 @@
 ##Rails.application.routes.draw do
 WorshipTogether::Application.routes.draw do
+  root 'users#index'
+
   resources :users
 
   get 'login', to: 'logins#new', as: :login
