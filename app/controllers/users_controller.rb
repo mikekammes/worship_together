@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     before_action :ensure_user_logged_in, only: [:edit, :update, :destroy]
-    before_action :ensure_correct_user, only: [:edit]
+    before_action :ensure_correct_user, only: [:edit, :update]
+    before_action :ensure_user_not_logged_in, only: [:create, :new]
     before_action :ensure_admin, only: [:destroy]
 
     def index
@@ -40,10 +41,13 @@ class UsersController < ApplicationController
 
     def destroy
 	@user=User.find(params[:id])
-	if @user.destroy
-	   flash[:succes] = "Destroyed the user"
-	   redirect_to users_path
-	end
+      if current_user?(@user) && @user.admin?
+        flash[:danger] = "you are an admin and can't delete yourself!"
+        redirect_to root_path
+      else @user.destroy
+       flash[:success] = "Destroyed the user"
+       redirect_to users_path
+    end
     end
 
     def show
@@ -69,6 +73,12 @@ class UsersController < ApplicationController
 	end
     end
 
+  def ensure_user_not_logged_in
+    if logged_in?
+      flash[:warning] = 'Already Logged in'
+      redirect_to root_path
+    end 
+  end
     def ensure_correct_user
 	@user = User.find(params[:id])
 	unless current_user?(@user)
