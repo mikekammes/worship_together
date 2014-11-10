@@ -4,6 +4,7 @@ WorshipTogether::Application.routes.draw do
 
   resources :users
   resources :rides
+  resources :services
 
   get 'login', to: 'logins#new', as: :login
   post 'login', to: 'logins#create', as: :logins

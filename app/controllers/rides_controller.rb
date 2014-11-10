@@ -6,6 +6,8 @@ class RidesController < ApplicationController
 		       :date
 		   when :Service
 		       :service_id
+  when :time_of_day
+    time_of_day
 		   end
 	@rides = Ride.order(ordering)
     end
