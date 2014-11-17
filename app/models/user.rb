@@ -8,7 +8,15 @@ class User < ActiveRecord::Base
 #    has_one :church_managed, class_name: 'Church', foreign_key: 'user_id'
 
     has_secure_password
+
     validates :name, presence: true, uniqueness:true, length: {maximum:50}
-    validates :email, presence: true, uniqueness:true
-    validates :password, presence: true
+    validates :email,
+	presence: true,
+	format: { with: /\A         # begin of input
+			 [-\w+.]+   # dash, wordy, plus, or dot characters
+			 @          # required at sign
+			 [-a-z\d.]+ # dash, letter, digit, or dot chars
+			 \z         # end of input
+		        /xi },
+	uniqueness:true
 end
