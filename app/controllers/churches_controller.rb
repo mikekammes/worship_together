@@ -6,6 +6,15 @@ class ChurchesController < ApplicationController
 	@church = Church.new
 	@church.services.build
     end
+  
+  def edit
+  end
+  
+  def show
+  end
+  
+  def destroy
+  end
 
     def create
 	@church = Church.new(church_params)

@@ -3,9 +3,11 @@ WorshipTogether::Application.routes.draw do
   root 'users#index'
 
   resources :users
-  resources :rides
+  
   resources :churches, shallow: true do
-    resources :services
+    resources :services, shallow: true do
+      resources :rides
+    end
   end
 
   get 'login', to: 'logins#new', as: :login

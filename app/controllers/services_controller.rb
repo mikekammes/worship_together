@@ -9,4 +9,7 @@ class ServicesController < ApplicationController
       Service.order(:start_time)
     end
   end
+  def show
+  end
 end
+

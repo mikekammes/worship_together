@@ -11,4 +11,12 @@ class RidesController < ApplicationController
 		   end
 	@rides = Ride.order(ordering)
     end
+  def show
+    order_param = (params[:Service]).to_sym
+	ordering = case order_param
+  when :Service
+    :service_id
+    @rides = Service.order(ordering)
+  end
+  end
 end

@@ -1,0 +1,9 @@
+<!-- call the destory function in the controller. IDK how to! -->
+<%= render 'shared/errors', object: @church %>
+
+<%= form_for @church do |form| %>
+  <%= f.label :delete %>
+  <%= f.text_area :delete %>
+
+<%= form.submit 'delete church' %>
+<% end %>
