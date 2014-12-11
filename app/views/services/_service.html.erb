@@ -1,5 +1,6 @@
 <li>
-  <%= service.church.name %>
+  <%= link_to service.church.name %>
   <%= service.start_time %>
   <%= service.day_of_week %>
+  <%= link_to 'Service_details', service %>
 </li>

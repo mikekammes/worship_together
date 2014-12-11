@@ -1,0 +1,11 @@
+<% @church.services.each do |serv| %>
+<div class = <%="service#{serv.id}" %>
+  
+  <p>Day: <%= serv.day_of_week %></p>
+  <p>Start Time: <%= serv.start_time %></p>
+  <p>Finish Time: <%= serv.finish_time %></p>
+  <p>Location: <%= serv.location %></p>
+  
+  <p> <%= link_to 'Service details', serv %></p>
+  
+  <% end %>

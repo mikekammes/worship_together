@@ -1,0 +1,17 @@
+<h1>Ride Details for <%@ride.service.id %> <h1>
+  <ul>
+    <li>Vehicle: <%=@ride.vehicle %></li>
+    <li>Location: <%=@ride.service.location %></li>
+    <li>Seats available: <%=@ride.seats_available %></li>
+    <li>Number of seats: <%=@ride.number_of_seats %></li>
+    <li>Church: <%=@ride.service.church.name %></li>
+    <li>Leave Time: <%=@ride.leave_time %></li>
+    <li>Return Time: <%=@ride.return_time %></li>
+    <li>Driver: <a href="<%= user_path(@ride.user) %>"><%=@ride.user.name %></a></li>
+    <li>Meeting Spot: <%=@ride.meeting_location %></li>
+    
+  </ul>
+  
+  <% if current_user %>
+  <%= button_to "Claim ride", ride_path, :class => "button", :method => :create %>
+  <% end %>

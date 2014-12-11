@@ -1,0 +1,11 @@
+<h1>Profile Page for <%= @church.name %></h1>
+<p> <%= link_to "official web site", @church.web_site %></p>
+<p>Image: <%= image_tag(@church.picture) %></p>
+<p>Description: <%= @church.description %></p>
+
+<% if logged_in? %>
+    <%= button_to "Attend this church", user_path(current_user, attend_church: @church.id), method: :patch %>
+<% end %>
+
+<%= render 'services' %>
+<p>Attendees</p>

@@ -25,18 +25,31 @@ class UsersController < ApplicationController
 
     def update
 	@user=User.find(params[:id])
-	if @user.update_attributes(params.require(:user).permit(:name, :email, :password))
-	    flash[:success] = "Edited the user"
-	    redirect_to @user
-	else
-	    flash.now[:danger] = "Unable to edit User"
-	    render 'edit'
-	end
-	
+      if params[:attend_church]
+        @user.church_id = params [:church_attend]
+        if @user.save
+          flash[:success] = "Attending church"
+          redirect_to root_path
+        else
+          flash[:danger] = "Can't attend church"
+          redirect_to root_path
+        end
+      else
+        if @user.update(user_params)
+          flash[:success] = "Updated, #{@user.name}"
+          redirect_to user_path
+        else
+          flash.now[:danger] = "Unable to modify your account"
+          render 'edit'
+        end
+      end
     end
 
     def edit
-	@user=User.find(params[:id])
+      @user = User.find(params[:id])
+      rescue
+      flash[:danger] = "Unable to find user"
+      redirect_to users_path
     end
 
     def destroy
@@ -58,6 +71,10 @@ class UsersController < ApplicationController
     end
 
     def edit
+     @user = User.find(params[:id])
+    rescue
+	flash[:danger] = "Unable to find user"
+	redirect_to users_path
     end
 
     private
@@ -94,6 +111,6 @@ class UsersController < ApplicationController
 	unless current_user.admin?
 	    flash[:danger] = 'Only admins allowed to delete users'
 	    redirect_to root_path
-	end
-    end
+	  end
+  end
 end

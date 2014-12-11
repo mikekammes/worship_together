@@ -14,6 +14,7 @@ class Ride < ActiveRecord::Base
   validates :number_of_seats, presence: true, :numericality => { only_integer: true, greater_than_or_equal_to: 0 }
   validates :date, presence: true
   
+  
   validate :enough_seats
   def enough_seats
     if(seats_available && number_of_seats)
@@ -29,11 +30,11 @@ class Ride < ActiveRecord::Base
     end
   end
   
-  validate :valid_date_creation
+  validate :valid_date_creation, on: :create
   def valid_date_creation
-    if (:date)
-      #errors.add(:date, 'you cannot create a ride for today') unless ( :date > Date.today)
-      errors.add(:date, 'you cannot create a ride for today') unless (:date )
+    if (date)
+      #errors.add(:date, 'you cannot create a ride for today') unless ( date > Date.today)
+      errors.add(:date, 'you cannot create a ride for yesterday or before that') unless (date > Date.today )
     end
   end
 end

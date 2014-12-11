@@ -10,6 +10,10 @@ class ServicesController < ApplicationController
     end
   end
   def show
+    @church = Church.find(params[:id])
+  rescue
+    flash[:danger] = "unable"
+    redirect_to churches_path
   end
 end
 

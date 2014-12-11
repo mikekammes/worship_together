@@ -1,1 +1,27 @@
-<h1>Service Information</h1>
+<p><%= @service.church_id %></p>
+<p> Updated At: <%= @service.updated_at %></p>
+<p><%= @service.day_of_week %></p>
+<p><%= @service.start_time %></p>
+<p><%= @service.finish_time %></p>
+<p><%= @service.location %></p>
+
+<%= @service.rides.each do |s| %>
+<div class= <%="ride#{s.id}" %> >
+	<p> <%= link_to 'more info', s  %> </p>
+	<p> s.date </p>
+	<p> <%= s.seats_available %> </p>
+	<p> <%= s.number_of_seats %> </p>
+	<p> <%= s.meeting_location %> </p>
+</div> 
+
+<% end %>
+
+<% if logged_in? %>
+<%= @ride = Ride.new %>
+<%= @path = "/services/#{@service.id}/rides" %>
+<%= form_for @ride, url: @path do |form| %>
+    <%= render partial: 'fields', locals: { f: form } %>
+
+<%= form.submit 'Offer ride' %>
+<% end %>
+<% end %>
